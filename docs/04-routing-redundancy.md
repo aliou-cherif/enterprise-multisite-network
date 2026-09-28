@@ -205,3 +205,80 @@ Melaka
    |
    +--------------------> Kuching
         Higher OSPF cost
+```
+
+This demonstrates route preference rather than simple physical redundancy.
+
+---
+
+# Routing Design by Site
+
+| Site | Local Routing Model | Gateway Redundancy | WAN Routing |
+|---|---|---|---|
+| Headquarters | Multilayer switching | HSRP | OSPFv2 |
+| Melaka | Redundant Router-on-a-Stick | HSRP | OSPFv2 |
+| Kuching | Single Router-on-a-Stick | None | OSPFv2 |
+
+The different models were intentionally retained instead of making all three sites identical.
+
+This makes the project useful for comparing different enterprise routing approaches.
+
+---
+
+# Separation of Routing Responsibilities
+
+The architecture separates several routing functions.
+
+### Local VLAN Routing
+
+Provides communication between VLANs within each site.
+
+### First-Hop Redundancy
+
+HSRP provides resilient virtual default gateways at HQ and Melaka.
+
+### Enterprise WAN Routing
+
+OSPF dynamically exchanges internal IPv4 routes between sites.
+
+### Internet Routing
+
+eBGP is used separately at the Internet edge and is documented in:
+
+[DMZ and Internet Edge](08-dmz-internet-edge.md)
+
+### IPv6 Routing
+
+OSPFv3 is used for IPv6 and is documented separately in:
+
+[IPv6 Design](05-ipv6.md)
+
+---
+
+# Validation
+
+The routing implementation was validated using commands including:
+
+- `show standby brief`
+- `show ip interface brief`
+- `show ip ospf neighbor`
+- `show ip route ospf`
+- `show ip ospf interface`
+
+The screenshots demonstrate:
+
+- Active and standby HSRP states
+- Router-on-a-Stick interfaces
+- Full OSPF neighbor relationships
+- Dynamically learned OSPF routes
+- Higher OSPF cost on the backup branch link
+
+---
+
+## Related Documentation
+
+- [Network Architecture](01-architecture.md)
+- [IP Addressing and VLAN Design](02-ip-addressing-vlans.md)
+- [Layer 2 Design](03-layer2-design.md)
+- [IPv6 Design](05-ipv6.md)
+- [DMZ and Internet Edge](08-dmz-internet-edge.md)
