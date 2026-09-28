@@ -134,6 +134,8 @@ The design allows the main site-to-site paths to use the central WAN while retai
 
 # Internet Edge
 
+![Internet Edge and DMZ Overview](../screenshots/architecture/internet-edge-dmz-overview.png)
+
 The Internet edge separates the internal enterprise network from the simulated ISP environment.
 
 It includes:
@@ -160,7 +162,7 @@ The external security test host is located outside the enterprise and was used t
 
 # Demilitarized Zone
 
-A dedicated DMZ hosts public-facing enterprise services.
+The DMZ shown in the Internet Edge overview hosts the enterprise public-facing services.
 
 The DMZ contains:
 
